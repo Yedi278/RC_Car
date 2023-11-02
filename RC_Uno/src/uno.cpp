@@ -6,6 +6,8 @@
 
 char c;
 AF_DCMotor motore(3);
+AF_DCMotor sterzo(1);
+
 String receivedBuffer = "NULL";
 char charBuff[5];
 
@@ -15,6 +17,8 @@ void motorControl();
 void setup() {
 
   motore.setSpeed(MAXSPEED);
+  sterzo.setSpeed(MAXSPEED);
+
   Wire.begin();        // join i2c bus (address optional for master)
   // Serial.begin(9600);  // start serial for output
 
@@ -50,6 +54,18 @@ void motorControl(){
   }else if(receivedBuffer == "0013"){
 
     motore.run(RELEASE);
+
+  }else if(receivedBuffer == "0021"){
+
+    sterzo.run(FORWARD);
+
+  }else if(receivedBuffer == "0022"){
+
+    sterzo.run(BACKWARD);
+
+  }else if(receivedBuffer == "0023"){
+
+    sterzo.run(RELEASE);
 
   }
 }
